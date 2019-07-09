@@ -4,10 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @author Pedro Augusto
@@ -46,12 +47,9 @@ public class CSVFileReader {
 					System.out.println("Texto do Arquivo insuficiente para montar objetos book");
 				}
 
-				// System.out.println(linha);
-
 			}
-			// System.out.println(books);
 
-			Iterator<Book> itr = books.iterator();
+			Iterator<Book> itr = ordenar(books).iterator();
 			while (itr.hasNext()) {
 				System.out.print(itr.next() + "\n");
 			}
@@ -64,6 +62,20 @@ public class CSVFileReader {
 		} catch (Exception e) {
 			System.out.println("Erro encontrado: " + e.getStackTrace());
 		}
+
+	}
+
+	public Set<Book> ordenar(Set<Book> random) {
+
+		Set<Book> sorted = new TreeSet<Book>(new Comparator<Book>() {
+			@Override
+			public int compare(Book b1, Book b2) {
+				return b1.getIsbn().compareTo(b2.getIsbn());
+			}
+		});
+		sorted.addAll(random);
+
+		return sorted;
 
 	}
 
