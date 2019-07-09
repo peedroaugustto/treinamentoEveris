@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -32,7 +33,13 @@ public class CSVFileReader {
 				// System.out.println(linha);
 				// System.out.println(linha.length());
 				try {
-					atributos = linha.split(",");
+
+					atributos = linha.split("\",");
+
+					for (int i = 0; i < atributos.length; i++) {
+						atributos[i] = atributos[i].replace("\"", "");
+					}
+
 					books.add(new Book(atributos[atributos.length - atributos.length], atributos[atributos.length - 3],
 							atributos[atributos.length - 2], Integer.parseInt(atributos[atributos.length - 1])));
 				} catch (Exception e) {
